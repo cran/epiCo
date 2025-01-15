@@ -33,11 +33,11 @@ In the following vignette, users will learn:
 
 ## 1. What is an endemic channel?
 
-Using an endemic channel is a visual strategy to represent the historical behavior of a disease in a specific region on an epidemic curve that defines the central tendency of the cases during a year and the upper and lower limits where cases are expected to vary. This plot provides three lines known as "$\color{green}{\text{Safety}}$", "$\color{orange}{\text{Warning}}$", and "$\color{Red}{\text{Epidemic}}$" bands (Figure 1), which are later used to define the epidemiological situation of the region based on the current (observed) cases.
+Using an endemic channel is a visual strategy to represent the historical behavior of a disease in a specific region on an epidemic curve that defines the central tendency of the cases during a year and the upper and lower limits where cases are expected to vary. This plot provides three lines known as "<em style="color: green;">Safety</em>", "<em style="color: orange;">Warning</em>", and "<em style="color: red;">Epidemic</em>" bands (Figure 1), which are later used to define the epidemiological situation of the region based on the current (observed) cases.
 
 The broader definition and methodology for the endemic channel were provided by [Bortman (1999)](https://iris.paho.org/handle/10665.2/8562).
 
-```{r, echo = FALSE, out.width = '100%'}
+```{r, echo = FALSE, out.width = '100%', fig.cap='Example of an endemic channel figure with the Safety, Warning, and Epidemic bands.'}
 knitr::include_graphics(
   path = file.path("..", "man", "figures", "endemic_channel_figure.png"),
   error = FALSE
@@ -142,7 +142,7 @@ The output of *epiCo*'s `endemic_channel` function is a dataframe with the obser
 
 The following example uses the previously historic incidence accessed from the SIVIGILA data source to build the 2021 *endemic channel* for Ibagué City.
 
-```{r}
+```{r, fig.cap="Dengue endemic channel for Ibagué in 2021"}
 observations <- sample(5:40, 52, replace = TRUE)
 
 outlier_years <- c(2016, 2019)

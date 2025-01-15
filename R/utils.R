@@ -183,11 +183,12 @@ incidence_rate <- function(incidence_object, level, scale = 100000) {
 #' geometric_mean(x, method = "optimized")
 #'
 #' @export
-geometric_mean <- function(x, method = c(
-                             "positive", "shifted",
-                             "optimized", "weighted"
-                           ),
-                           shift = 1, epsilon = 1e-3) {
+geometric_mean <- function(
+    x, method = c(
+      "positive", "shifted",
+      "optimized", "weighted"
+    ),
+    shift = 1, epsilon = 1e-3) {
   stopifnot(
     "`x`must be numeric" = (is.numeric(x)),
     "`shift` must be numeric" = (is.numeric(shift)),
@@ -196,10 +197,14 @@ geometric_mean <- function(x, method = c(
   method <- match.arg(method)
 
   if (method == "positive") {
-    stopifnot("`x` includes zero or negative values,
-              check the geom_mean methods" = all(x > 0))
-
-    gm <- exp(mean(log(x)))
+    if (any(x) <= 0) {
+      message(
+        sum(x <= 0),
+        " zeros or negative values where ignored in the estimation"
+      )
+    }
+    x_positive <- x[x > 0]
+    gm <- exp(mean(log(x_positive)))
   } else if (method == "shifted") {
     x_shifted <- x + shift
     stopifnot("shifted `x` still includes zero or negative values,
@@ -213,8 +218,8 @@ geometric_mean <- function(x, method = c(
     w_positive <- length(x_positive) / n_x
     x_negative <- x[x < 0]
     w_negative <- length(x_negative) / n_x
-    gm_positive <- exp(sum(log(x_positive)) / n_x)
-    gm_negative <- -1 * exp(sum(log(abs(x_negative))) / n_x)
+    gm_positive <- exp(mean(log(x_positive)))
+    gm_negative <- -1 * exp(mean(log(abs(x_negative))))
     gm <- w_positive * gm_positive + w_negative * gm_negative
   } else if (method == "optimized") {
     # The formula is:
@@ -295,11 +300,12 @@ geometric_mean <- function(x, method = c(
 #' geometric_sd(x, method = "optimized")
 #'
 #' @export
-geometric_sd <- function(x, method = c(
-                           "positive", "shifted",
-                           "optimized", "weighted"
-                         ),
-                         shift = 1, delta = 1e-3) {
+geometric_sd <- function(
+    x, method = c(
+      "positive", "shifted",
+      "optimized", "weighted"
+    ),
+    shift = 1, delta = 1e-3) {
   stopifnot(
     "`x`must be numeric" = (is.numeric(x)),
     "`shift` must be numeric" = (is.numeric(shift)),
@@ -308,9 +314,14 @@ geometric_sd <- function(x, method = c(
   method <- match.arg(method)
 
   if (method == "positive") {
-    stopifnot("`x` includes zero or negative values,
-              check the geom_mean methods" = any(x <= 0))
-    gsd <- stats::sd((log(x)))
+    if (any(x) <= 0) {
+      message(
+        sum(x <= 0),
+        " zeros or negative values where ignored in the estimation"
+      )
+    }
+    x_positive <- x[x > 0]
+    gsd <- stats::sd((log(x_positive)))
   } else if (method == "shifted") {
     x_shifted <- x + shift
     stopifnot("shifted `x` still includes zero or negative values,

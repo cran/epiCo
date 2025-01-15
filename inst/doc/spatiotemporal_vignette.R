@@ -4,7 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ----messages = FALSE, eval = TRUE--------------------------------------------
+## ----messages = FALSE, eval = TRUE, fig.cap = "Neighbor municipalities of Cundinamarca with a 0.5-hour threshold."----
 library(epiCo)
 library(dplyr)
 library(incidence)
@@ -25,7 +25,7 @@ plot(cundinamarca_neighborhood, cbind(
   cundinamarca_data$LONGITUD
 ))
 
-## ----messages = FALSE, eval = TRUE--------------------------------------------
+## ----messages = FALSE, eval = TRUE, fig.cap="Local Moran's index clusters for the incidence of Tolima municipalities in 2019."----
 data("epi_data")
 
 data_tolima <- epi_data[lubridate::year(epi_data$fec_not) == 2019, ]

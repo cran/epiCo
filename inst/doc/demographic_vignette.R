@@ -18,17 +18,17 @@ ibague_pyramid_2016 <- population_pyramid(ibague_code, year) # Population
 # dissagregated by sex
 knitr::kable(ibague_pyramid_2016[1:5, ])
 
-## -----------------------------------------------------------------------------
-ibague_code <- "73001" # DIVIPOLA code for the city of Ibagu<U+00E9>
+## ----fig.cap='Population pyramid for the city of Ibagué in 2019'--------------
+ibague_code <- "73001" # DIVIPOLA code for the city of Ibagué
 year <- 2019 # Year to consult
 age_range <- 5 # Age range or window
 ibague_pyramid_2019 <- population_pyramid(ibague_code, year,
   range = age_range,
   sex = TRUE, total = TRUE,
-  plot = TRUE, language = "EN"
+  plot = TRUE
 )
 
-## -----------------------------------------------------------------------------
+## ----fig.cap='Treemap plot of the distribution of occupations reported in the line list'----
 demog_data <- data.frame(
   id = c(0001, 002, 003, 004, 005, 006, 007, 008),
   ethnicity_label = c(3, 4, 2, 3, 3, 3, 2, 3),
@@ -38,7 +38,7 @@ demog_data <- data.frame(
 )
 
 
-ethnicities <- describe_ethnicity(demog_data$ethnicity_label, language = "EN")
+ethnicities <- describe_ethnicity(demog_data$ethnicity_label)
 knitr::kable(ethnicities)
 
 occupations <- describe_occupation(
@@ -63,12 +63,12 @@ incidence_object <- incidence(
 incidence_rate_object <- incidence_rate(incidence_object, level = 2)
 knitr::kable(incidence_rate_object$counts[1:5, 1:12])
 
-## -----------------------------------------------------------------------------
+## ----fig.cap='Age risk plot for the city of Ibagué in 2019'-------------------
 data_ibague <- data_tolima[data_tolima$cod_mun_o == 73001, ]
 
 age_risk_data <- age_risk(
-  age = as.integer(data_ibague$edad),
+  age = data_ibague$edad,
   population_pyramid = ibague_pyramid_2019$data,
-  sex = data_ibague$sexo, plot = TRUE, language = "EN"
+  sex = data_ibague$sexo, plot = TRUE
 )
 

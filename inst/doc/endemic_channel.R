@@ -4,7 +4,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ----echo = FALSE, out.width = '100%'-----------------------------------------
+## ----echo = FALSE, out.width = '100%', fig.cap='Example of an endemic channel figure with the Safety, Warning, and Epidemic bands.'----
 knitr::include_graphics(
   path = file.path("..", "man", "figures", "endemic_channel_figure.png"),
   error = FALSE
@@ -27,7 +27,7 @@ incidence_historic <- incidence(data_ibague$fec_not,
 
 knitr::kable(incidence_historic[1:5, ])
 
-## -----------------------------------------------------------------------------
+## ----fig.cap="Dengue endemic channel for Ibagué in 2021"----------------------
 observations <- sample(5:40, 52, replace = TRUE)
 
 outlier_years <- c(2016, 2019)

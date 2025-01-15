@@ -38,7 +38,7 @@ neighborhoods <- function(query_vector, threshold = 2) {
     msg <- paste(
       "Municipalities", toString(null_municipalities),
       "are not part of the neighborhood according to the selected",
-      "thershold in hours. It wil be displayed as 'Not significant'",
+      "threshold in hours. It wil be displayed as 'Not significant'",
       "but it was not included in the local moran's index analysis."
     )
     message(msg)
@@ -60,7 +60,6 @@ neighborhoods <- function(query_vector, threshold = 2) {
 #' @param threshold Maximum traveling time around each municipality.
 #' @param plot if TRUE, returns a plot of influential observations in the
 #' Moran's plot.
-#' @param language Language for plot components
 
 #' @return List of Moran's I clustering analysis, giving the quadrant of each
 #' observation, influential values.
@@ -78,7 +77,7 @@ neighborhoods <- function(query_vector, threshold = 2) {
 #' morans_index(incidence_object, scale = 100000, threshold = 2, plot = TRUE)
 #' @export
 morans_index <- function(incidence_object, scale = 100000, threshold = 2,
-                         plot = TRUE, language = c("EN", "ES")) {
+                         plot = TRUE) {
   stopifnot(
     "`incidence_object` must have incidence class" =
       (inherits(incidence_object, "incidence")),
@@ -88,7 +87,6 @@ morans_index <- function(incidence_object, scale = 100000, threshold = 2,
     "`threshold` must be numeric" = (is.numeric(threshold)),
     "`plot` must be boolean" = (is.logical(plot))
   )
-  language <- match.arg(language)
 
   incidence_rate <- incidence_rate(
     incidence_object = incidence_object,
@@ -155,20 +153,12 @@ morans_index <- function(incidence_object, scale = 100000, threshold = 2,
   }
   # Plot
   if (plot) {
-    map_title <- paste0(
-      "Local Moran's Index Clusters </br>",
+    map_title <- sprintf(
+      tr_("Local Moran's Index Clusters </br>%s-W%s to %s later"),
       lubridate::epiyear(incidence_object$dates),
-      "-W", lubridate::epiweek(incidence_object$dates),
-      " to ", incidence_object$interval, " later"
+      lubridate::epiweek(incidence_object$dates),
+      incidence_object$interval
     )
-    if (language == "ES") {
-      map_title <- paste0(
-        "Clusters del Indice de Moran Local </br>",
-        lubridate::epiyear(incidence_object$dates),
-        "-SE", lubridate::epiweek(incidence_object$dates),
-        " a ", incidence_object$interval, " despues"
-      )
-    }
     path_2 <- system.file("extdata", "spatial_polygons_col_2.rda",
       package = "epiCo"
     )
@@ -199,7 +189,6 @@ morans_index <- function(incidence_object, scale = 100000, threshold = 2,
       "<b>", "Cluster: ", "</b>",
       shapes$CLUSTER, "<br>"
     )
-    # nolint start
     pal <- leaflet::colorFactor(
       palette = c(
         "#ba0001", "#00992C", "#80CC96",
@@ -212,6 +201,7 @@ morans_index <- function(incidence_object, scale = 100000, threshold = 2,
       ordered = TRUE
     )
 
+    # nolint next
     tile_provider <- "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
 
     clusters_plot <- leaflet::leaflet(shapes) %>%
@@ -237,7 +227,6 @@ morans_index <- function(incidence_object, scale = 100000, threshold = 2,
         title = map_title,
         opacity = 1
       )
-    # nolint end
     return(list(data = morans_index, plot = clusters_plot))
   } else {
     return(morans_index)

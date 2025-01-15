@@ -1,6 +1,6 @@
 Package: epiCo
 Title: Statistical and Viz Tools for Vector-Borne Diseases in Colombia
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person("Juan D.", "Umaña", , "jd.umana10@uniandes.edu.co", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0003-0316-6164")),
@@ -21,23 +21,26 @@ License: MIT + file LICENSE
 URL: https://epiverse-trace.github.io/epiCo/,
         https://github.com/epiverse-trace/epiCo
 BugReports: https://github.com/epiverse-trace/epiCo/issues
-Depends: R (>= 3.5.0)
-Imports: dplyr, ggplot2, ggraph, igraph, incidence, leaflet, lubridate,
-        magrittr, RColorBrewer, rlang, scales, spdep, stats,
-        treemapify, utils
-Suggests: checkmate, covr, knitr, rmarkdown, testthat (>= 3.0.0)
+Depends: R (>= 4.0.0)
+Imports: dplyr, ggplot2, ggraph, grDevices, igraph, incidence, leaflet,
+        lubridate, magrittr, rlang, scales, spdep, stats, treemapify,
+        utils
+Suggests: checkmate, covr, knitr, rmarkdown, spelling, testthat (>=
+        3.0.0)
 VignetteBuilder: knitr
 Config/Needs/website: epiverse-trace/epiversetheme
 Config/testthat/edition: 3
+Config/potools/style: explicit
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
+Language: en-US
 NeedsCompilation: no
-Packaged: 2024-06-27 15:15:10 UTC; juandanielumanacaro
+Packaged: 2025-01-08 22:03:21 UTC; juandanielumanacaro
 Author: Juan D. Umaña [aut, cre, cph] (<https://orcid.org/0000-0003-0316-6164>),
   Juan Montenegro-Torres [aut] (<https://orcid.org/0000-0003-2755-4743>),
   Julian Otero [aut] (<https://orcid.org/0009-0006-0429-7747>),
   Hugo Gruson [ctb] (<https://orcid.org/0000-0002-4094-1476>)
 Maintainer: Juan D. Umaña <jd.umana10@uniandes.edu.co>
 Repository: CRAN
-Date/Publication: 2024-06-28 09:40:05 UTC
+Date/Publication: 2025-01-15 10:10:01 UTC
